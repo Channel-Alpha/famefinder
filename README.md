@@ -54,3 +54,18 @@ In a cloud-based solution, scalability is built-in. AWS Lambda provides a server
 Based on the analysis, we propose a cloud-based solution using AWS services such as Amazon Rekognition, Lambda, and S3. The solution provides high accuracy in image recognition, cost optimisation, and scalability.
 When an image is uploaded to an S3 bucket, the Lambda function triggers an event and calls the Amazon Rekognition API to process the image. The Amazon Rekognition API returns the result, which is stored in the S3 bucket. The solution is highly scalable, and resources are allocated based on demand. Additionally, the solution is cost-optimised as we only pay for the resources we use.
 With the proposed solution, we can process millions of images per day, providing an efficient and effective solution for image recognition.
+
+# Contribution Guide
+
+To contribute to this project, **you will need to have Node.js and npm installed on your machine**. You will also need to have Git installed to clone the repository.
+
+## Getting Started
+
+To get started with this project, follow these steps:
+
+1. Clone the repository to your local machine using `git clone`
+2. Install the necessary dependencies by running `npm install`
+3. Start the development server by running `npm run dev`
+4. Open your web browser and navigate to <http://localhost:5173>
+5. To deploy a static site for production run `npm tun build` .By default, the build output will be placed at dist. You may deploy this dist folder to any of your preferred platforms e.g S3 bucket
+6. To test the production app locally run `npm run preview`
