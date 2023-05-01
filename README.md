@@ -67,5 +67,5 @@ To get started with this project, follow these steps:
 2. Install the necessary dependencies by running `npm install`
 3. Start the development server by running `npm run dev`
 4. Open your web browser and navigate to <http://localhost:5173>
-5. To deploy a static site for production run `npm tun build` .By default, the build output will be placed at dist. You may deploy this dist folder to any of your preferred platforms e.g S3 bucket
+5. To deploy a static site for production run `npm run build` .By default, the build output will be placed at dist. You may deploy this dist folder to any of your preferred platforms e.g S3 bucket
 6. To test the production app locally run `npm run preview`
