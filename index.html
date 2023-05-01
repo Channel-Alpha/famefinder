@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Fame Finder</title>
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				<h1>Welcome to Fame Finder!</h1>
+				<h4>Upload a photo</h4>
+				<input type="file" id="input" />
+				<button id="upload-btn">Upload</button>
+				<div id="error-message" style="display: none; color: red"></div>
+
+				<div id="output">
+					<img
+						id="image"
+						style="max-width: 30%; height: auto; display: none"
+						alt="image"
+					/>
+				</div>
+			</div>
+		</div>
+		<script type="module" src="/main.js"></script>
+	</body>
+</html>
