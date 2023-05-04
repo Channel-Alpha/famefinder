@@ -27,11 +27,8 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
- /* place-items: center;*/
-  /*min-width: 320px;
-  min-height: 100vh;*/
   color: black;
-  background: url(images/geometric-1732847.jpg) no-repeat center center fixed; 
+  background: url(/geometric-1732847.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -42,7 +39,6 @@ body {
 
 h1 {
   font-size: 3.2em;
-  line-height: 1.1;
 }
 
 #app {
@@ -63,8 +59,8 @@ h1 {
   position: relative;
   justify-content: center;
   margin: 2rem;
-  width: 15rem;
-  height: 20rem;
+  width: 12rem;
+  height: 17rem;
   border: 0.2rem solid red;
   text-align: center;
   color: black;
@@ -72,10 +68,12 @@ h1 {
 }
 
 .centered {
+  width: 80%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: hsla(153, 100%, 19%, 0.3);
 }
 
 .sample-image {
@@ -110,9 +108,9 @@ h1 {
 }
 
 
-.welcome {
-  padding-top: 2rem;
-}
+/*.welcome {
+  padding-top: 0.5rem;
+}*/
 
 /*.logo {
   height: 6em;
@@ -142,7 +140,6 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  /*background-color: #1a1a1a;*/
   cursor: pointer;
   transition: border-color 0.25s;
 }
