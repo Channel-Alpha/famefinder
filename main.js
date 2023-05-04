@@ -20,13 +20,21 @@ uploadButton.addEventListener('click', async () => {
 		return;
 	}
 	try {
-		const { imageUrl, error } = await uploadImage(file);
+		const { imageUrl, error, analysis } = await uploadImage(file);
 		if (error) {
 			errorMessage.textContent = error.message;
 			errorMessage.style.display = 'block';
 			throw error;
 		}
 		displayImage(imageUrl);
+
+		const container = document.getElementById('analysis');
+
+		analysis?.CelebrityFaces?.forEach((item) => {
+			const div = document.createElement('div');
+			div.innerHTML = `<p>${item.Name}</p>`;
+			container.appendChild(div);
+		});
 	} catch (error) {
 		console.error(error);
 	}

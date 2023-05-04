@@ -1,5 +1,5 @@
-const S3_BUCKET_NAME = 'famefindertest';
-const API_GW = 'https://jl0w6bn9ua.execute-api.eu-north-1.amazonaws.com/dev';
+const S3_BUCKET_NAME = 'famefinderassets';
+const API_GW = 'https://p9t80pbgh0.execute-api.us-east-1.amazonaws.com/dev';
 let BUCKET_URL = `${API_GW}/${S3_BUCKET_NAME}`;
 
 const allowedExtensions = ['jpg', 'jpeg', 'png'];
@@ -10,28 +10,59 @@ const validateFile = (file) => {
 	return allowedExtensions.includes(extension);
 };
 
+function readFileAsDataURL(file) {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+
+		reader.onload = () => resolve(reader.result);
+		reader.onerror = (error) => reject(error);
+
+		reader.readAsDataURL(file);
+	});
+}
+
 export const uploadImage = async (file) => {
 	let output = {
 		error: null,
 		imageUrl: null,
+		analysis: {},
 	};
 
-	if (!validateFile(file)) {
-		output.error = new Error('Please upload a valid image file');
+	try {
+		if (!validateFile(file)) {
+			throw new Error('Please upload a valid image file');
+		}
+
+		let imageUrl = `${BUCKET_URL}/${file?.name}`;
+
+		// Read the file as a data URL
+		const dataUrl = await readFileAsDataURL(file);
+
+		// Extract the base64-encoded data from the data URL
+		const base64Data = dataUrl.split(',')[1];
+		// Make a PUT request to the API Gateway with the base64-encoded data
+		const response = await fetch(imageUrl, {
+			method: 'PUT',
+			body: JSON.stringify({ image_data: base64Data }),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+		if (!response.ok) {
+			throw new Error('Failed to upload image');
+		}
+
+		const data = await response.json();
+		console.log('data', data);
+
+		output.imageUrl = imageUrl;
+		output.analysis = data;
+		return output;
+	} catch (error) {
+		console.error('There was a problem uploading the image:', error);
+		output.error = error;
 		return output;
 	}
-
-	let imageUrl = `${BUCKET_URL}/${file?.name}`;
-
-	const response = await fetch(imageUrl, {
-		method: 'PUT',
-		body: file,
-	});
-	if (!response.ok) {
-		throw new Error('Failed to upload image');
-	}
-	output.imageUrl = imageUrl;
-	return output;
 };
 
 export const displayImage = (imageUrl) => {
@@ -42,11 +73,11 @@ export const displayImage = (imageUrl) => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
 			}
-			return response.blob();
+			return response.text();
 		})
-		.then((blob) => {
-			const objectUrl = URL.createObjectURL(blob);
-			imageElement.src = objectUrl;
+		.then((data) => {
+			const img = new Image();
+			imageElement.src = `data:image/jpeg;base64,${data}`;
 			imageElement.style.display = 'block';
 		})
 		.catch((error) => {
