@@ -33,7 +33,6 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  /*background-color: hsl(60, 80%, 62%);*/
 }
 
 
@@ -73,7 +72,7 @@ h1 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: hsla(153, 100%, 19%, 0.3);
+  background-color: hsla(153, 100%, 19%, 0.1);
 }
 
 .sample-image {
@@ -107,10 +106,6 @@ h1 {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
-/*.welcome {
-  padding-top: 0.5rem;
-}*/
 
 /*.logo {
   height: 6em;
@@ -150,6 +145,12 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+#output {
+  display: inline-block;
+  margin: 0.3rem;
+  padding: 0.2rem;
 }
 
 /*@media (prefers-color-scheme: light) {
