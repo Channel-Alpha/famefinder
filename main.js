@@ -7,9 +7,13 @@ import { uploadImage, displayImage } from './image.js';
 const inputElement = document.getElementById('input');
 const uploadButton = document.getElementById('upload-btn');
 const errorMessage = document.getElementById('error-message');
+const imageElement = document.getElementById('image');
+const responseContainer = document.getElementById('analysis');
 
 inputElement.addEventListener('change', () => {
 	errorMessage.style.display = 'none';
+	imageElement.style.display = 'none';
+	responseContainer.style.display = 'none';
 });
 
 uploadButton.addEventListener('click', async () => {
@@ -20,22 +24,24 @@ uploadButton.addEventListener('click', async () => {
 		return;
 	}
 	try {
-		const { imageUrl, error, analysis } = await uploadImage(file);
+		const { imageUrl, error, celebrityFaces } = await uploadImage(file);
 		if (error) {
-			errorMessage.textContent = error.message;
-			errorMessage.style.display = 'block';
 			throw error;
 		}
 		displayImage(imageUrl);
 
-		const container = document.getElementById('analysis');
+		if (celebrityFaces.length < 1) {
+			throw new Error('No celebrity recognized.');
+		}
 
-		analysis?.CelebrityFaces?.forEach((item) => {
-			const div = document.createElement('div');
-			div.innerHTML = `<p>${item.Name}</p>`;
-			container.appendChild(div);
+		celebrityFaces.forEach((item) => {
+			responseContainer.innerHTML = `<p>${item.Name}</p>`;
 		});
+		responseContainer.style.display = 'block';
 	} catch (error) {
 		console.error(error);
+		errorMessage.textContent = error.message;
+		errorMessage.style.display = 'block';
+		inputElement.value = '';
 	}
 });

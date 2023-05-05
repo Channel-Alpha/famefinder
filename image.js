@@ -2,9 +2,10 @@ const S3_BUCKET_NAME = 'famefinderassets';
 const API_GW = 'https://p9t80pbgh0.execute-api.us-east-1.amazonaws.com/dev';
 let BUCKET_URL = `${API_GW}/${S3_BUCKET_NAME}`;
 
+const MAX_FILE_SIZE = 1024 * 1024 * 10; // 10 MB
 const allowedExtensions = ['jpg', 'jpeg', 'png'];
 
-const validateFile = (file) => {
+const validateFileExt = (file) => {
 	const fileName = file?.name.toLowerCase();
 	const extension = fileName?.split('.').pop();
 	return allowedExtensions.includes(extension);
@@ -25,12 +26,15 @@ export const uploadImage = async (file) => {
 	let output = {
 		error: null,
 		imageUrl: null,
-		analysis: {},
+		celebrityFaces: [],
 	};
 
 	try {
-		if (!validateFile(file)) {
-			throw new Error('Please upload a valid image file');
+		if (!validateFileExt(file)) {
+			throw new Error('Please upload a jpeg, jpg or png file');
+		}
+		if (file.size > MAX_FILE_SIZE) {
+			throw new Error('Image size cannot exceed 10MB');
 		}
 
 		let imageUrl = `${BUCKET_URL}/${file?.name}`;
@@ -49,14 +53,21 @@ export const uploadImage = async (file) => {
 			},
 		});
 		if (!response.ok) {
-			throw new Error('Failed to upload image');
+			throw new Error(
+				`Failed to upload image with status - ${response.status}`
+			);
 		}
 
 		const data = await response.json();
-		console.log('data', data);
+
+		if (!data) {
+			throw new Error(
+				'Oops! something went wrong - could not analyse image'
+			);
+		}
 
 		output.imageUrl = imageUrl;
-		output.analysis = data;
+		output.celebrityFaces = data.CelebrityFaces;
 		return output;
 	} catch (error) {
 		console.error('There was a problem uploading the image:', error);
