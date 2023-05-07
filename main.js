@@ -28,14 +28,12 @@ inputElement.addEventListener('change', () => {
 });
 
 uploadButton.addEventListener('click', async () => {
-	showSpinner();
-	const file = inputElement.files[0];
-	if (!file) {
-		errorMessage.textContent = 'Please select an image file';
-		errorMessage.style.display = 'block';
-		return;
-	}
 	try {
+		showSpinner();
+		const file = inputElement.files[0];
+		if (!file) {
+			throw new Error('Please select an image file');
+		}
 		const { imageUrl, error, celebrityFaces } = await uploadImage(file);
 		if (error) {
 			throw error;
@@ -54,10 +52,10 @@ uploadButton.addEventListener('click', async () => {
 		responseContainer.style.display = 'block';
 		hideSpinner();
 	} catch (error) {
+		hideSpinner();
 		console.error(error);
 		errorMessage.textContent = error.message;
 		errorMessage.style.display = 'block';
 		inputElement.value = '';
-		hideSpinner();
 	}
 });
