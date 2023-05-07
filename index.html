@@ -5,7 +5,7 @@
 		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Alpha Channel: fameFinder</title>
-		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
 		<div id="app">
@@ -17,12 +17,19 @@
 				</p>
 			</div>
 			<div class="upload-frame">
-				<img class="sample-image" src="/woman-7930697_1280.png" />
-				<div class="centered">
+				<img
+					class="sample-image"
+					id="image"
+					src="/woman-7930697_1280.png"
+				/>
+				<div id="upload-info" class="centered">
 					<h4>Upload a photo</h4>
 					<h4>jpg, jpeg, png</h4>
 				</div>
-				<div id="analysis"></div>
+				<div id="change-info" class="centered" style="display: none">
+					<h4>Click upload to analyze image</h4>
+				</div>
+				<div class="loader"></div>
 			</div>
 			<div class="form">
 				<div class="input-container">
@@ -41,13 +48,7 @@
 				</div>
 			</div>
 			<div id="error-message" style="display: none; color: red"></div>
-			<div id="output">
-				<img
-					id="image"
-					style="max-width: 30%; height: auto; display: none"
-					alt="image"
-				/>
-			</div>
+			<div id="output"></div>
 		</div>
 		<script type="module" src="/main.js"></script>
 	</body>

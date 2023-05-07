@@ -2,7 +2,7 @@ const S3_BUCKET_NAME = 'famefinderassets';
 const API_GW = 'https://p9t80pbgh0.execute-api.us-east-1.amazonaws.com/dev';
 let BUCKET_URL = `${API_GW}/${S3_BUCKET_NAME}`;
 
-const MAX_FILE_SIZE = 1024 * 1024 * 10; // 10 MB
+const MAX_FILE_SIZE = 1024 * 1024 * 4; // 4 MB
 const allowedExtensions = ['jpg', 'jpeg', 'png'];
 
 const validateFileExt = (file) => {
@@ -78,6 +78,8 @@ export const uploadImage = async (file) => {
 
 export const displayImage = (imageUrl) => {
 	const imageElement = document.getElementById('image');
+	const infoElement = document.getElementById('upload-info');
+	const changeElement = document.getElementById('change-info');
 
 	fetch(imageUrl)
 		.then((response) => {
@@ -87,9 +89,10 @@ export const displayImage = (imageUrl) => {
 			return response.text();
 		})
 		.then((data) => {
-			const img = new Image();
 			imageElement.src = `data:image/jpeg;base64,${data}`;
 			imageElement.style.display = 'block';
+			infoElement.style.display = 'none';
+			changeElement.style.display = 'none';
 		})
 		.catch((error) => {
 			console.error('There was a problem with the API call:', error);
