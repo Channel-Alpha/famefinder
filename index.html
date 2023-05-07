@@ -11,27 +11,42 @@
 		<div id="app">
 			<div class="welcome">
 				<h1>Welcome to fameFinder!</h1>
-				<p>An Alpha Channel Machine Vision for the detection of celebrities world wide</p>
+				<p>
+					An Alpha Channel Machine Vision for the detection of
+					celebrities world wide
+				</p>
 			</div>
 			<div class="upload-frame">
-				<img class="sample-image" src="/woman-7930697_1280.png">
+				<img class="sample-image" src="/woman-7930697_1280.png" />
 				<div class="centered">
 					<h4>Upload a photo</h4>
 					<h4>jpg, jpeg, png</h4>
 				</div>
+				<div id="analysis"></div>
 			</div>
 			<div class="form">
 				<div class="input-container">
 					<label for="input">Select a file:</label>
-						<input type="file" id="input">
+					<input type="file" id="input" />
 				</div>
 				<div class="btn-container">
-					<input id="upload-btn" type="image" src="/icons8-upload-100.png" alt="Submit" width="100" height="100">
+					<input
+						id="upload-btn"
+						type="image"
+						src="/icons8-upload-100.png"
+						alt="Submit"
+						width="100"
+						height="100"
+					/>
 				</div>
 			</div>
 			<div id="error-message" style="display: none; color: red"></div>
 			<div id="output">
-				<img id="image" style="max-width: 30%; height: auto; display: none" alt="image"/>
+				<img
+					id="image"
+					style="max-width: 30%; height: auto; display: none"
+					alt="image"
+				/>
 			</div>
 		</div>
 		<script type="module" src="/main.js"></script>
